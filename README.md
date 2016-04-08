@@ -16,7 +16,7 @@ docker pull timonier/mailcatcher:0.6.4
 
 ## Usage
 
-Run your container via `docker run`. The mailcatcher options can be passed as arguments:
+Run the application via `docker run`. The mailcatcher options can be passed as arguments:
 
 ```sh
 # See all mailcatcher options
@@ -26,8 +26,8 @@ docker run timonier/mailcatcher:0.6.4 --help
 docker run \
     -i \
     -t \
-    --net=host \
-    timonier/mailcatcher:0.6.4 --smtp-port 25 --http-port 80 --ip 0.0.0.0 -f
+    --net host \
+    timonier/mailcatcher:0.6.4 --smtp-port 25 --http-port 80 --ip 0.0.0.0
 ```
 
 ## Contributing

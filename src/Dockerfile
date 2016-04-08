@@ -33,4 +33,4 @@ RUN set -x \
     && rm -rf \
            /var/cache/apk/*
 
-ENTRYPOINT [ "/usr/bin/mailcatcher" ]
+ENTRYPOINT [ "/usr/bin/mailcatcher" , "-f" ]
