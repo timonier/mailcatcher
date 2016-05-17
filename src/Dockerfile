@@ -7,30 +7,27 @@ ENV \
 
 RUN set -x \
 
-    # Prepare system
-
-    && apk add -U \
-
     # Install packages
 
-    && BUILD_DEPS="build-base ruby-dev sqlite-dev" \
+    && apk add --no-cache --no-progress --virtual build_deps \
+           build-base \
+           ruby-dev \
+           sqlite-dev \
 
-    && apk add \
-           $BUILD_DEPS \
+    && apk add --no-cache --no-progress \
            libstdc++ \
            ruby \
            ruby-bigdecimal \
            sqlite-libs \
+
+    # Install mailcatcher
 
     && gem install -V --no-ri --no-rdoc \
            mailcatcher:$MAILCATCHER_VERSION \
 
     # Clean
 
-    && apk del \
-           $BUILD_DEPS \
-
-    && rm -rf \
-           /var/cache/apk/*
+    && apk del --no-progress \
+           build_deps
 
 ENTRYPOINT [ "/usr/bin/mailcatcher" , "-f" ]

@@ -5,7 +5,7 @@
 Pull the image `timonier/mailcatcher`:
 
 ```sh
-# Get the latest image
+# Get the latest image (version 0.6.4)
 docker pull timonier/mailcatcher
 
 # Or get a specific version
@@ -20,14 +20,18 @@ Run the application via `docker run`. The mailcatcher options can be passed as a
 
 ```sh
 # See all mailcatcher options
-docker run timonier/mailcatcher:0.6.4 --help
+docker run \
+    -i \
+    -t \
+    --net host \
+    timonier/mailcatcher --help
 
 # Run mailcatcher
 docker run \
     -i \
     -t \
     --net host \
-    timonier/mailcatcher:0.6.4 --smtp-port 25 --http-port 80 --ip 0.0.0.0
+    timonier/mailcatcher --smtp-port 25 --http-port 80 --ip 0.0.0.0
 ```
 
 ## Contributing
