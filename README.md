@@ -1,5 +1,7 @@
 # README
 
+Catches mail and serves it
+
 ## Installation
 
 Pull the image `timonier/mailcatcher`:
@@ -50,3 +52,4 @@ __Note__: Use the script `bin/build` to test your modifications locally.
 * [command "docker run"](https://docs.docker.com/reference/run/)
 * [image "timonier/mailcatcher"](https://hub.docker.com/r/timonier/mailcatcher/)
 * [mailcatcher](https://mailcatcher.me/)
+* [timonier/dumb-entrypoint](https://github.com/timonier/dumb-entrypoint)
