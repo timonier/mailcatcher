@@ -1,40 +1,39 @@
-FROM alpine:3.4
+FROM ruby:2.3-alpine
 
 LABEL \
     maintainer="Morgan Auchede <morgan.auchede@gmail.com>"
 
 ENV \
-    MAILCATCHER_VERSION=0.6.4
+    MAILCATCHER_VERSION=latest
 
-RUN set -x \
+RUN set -eux \
 
     # Install packages
 
-    && apk add --no-cache --no-progress --virtual build_deps \
+    && apk add --no-cache --no-progress --virtual BUILD_DEPS \
            build-base \
            ca-certificates \
            curl \
-           ruby-dev \
            sqlite-dev \
 
     && apk add --no-cache --no-progress \
            libstdc++ \
-           ruby \
-           ruby-bigdecimal \
            sqlite-libs \
+
+    # Install dumb-entrypoint
+
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/bin/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s install \
 
     # Install mailcatcher
 
-    && gem install -V --no-ri --no-rdoc \
-           mailcatcher:${MAILCATCHER_VERSION} \
+    && export $(curl "https://raw.githubusercontent.com/timonier/version-lister/release/generated/mailcatcher/${MAILCATCHER_VERSION}" | xargs) \
 
-    # Install timonier/dumb-entrypoint
-
-    && curl -sL "https://github.com/timonier/dumb-entrypoint/raw/master/bin/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s install \
+    && gem install --no-rdoc --no-ri --no-verbose \
+           "mailcatcher:${MAILCATCHER_VERSION}" \
 
     # Clean
 
     && apk del --no-progress \
-           build_deps
+           BUILD_DEPS
 
-ENTRYPOINT [ "dumb-init" , "--" , "dumb-entrypoint" , "mailcatcher" , "-f" ]
+ENTRYPOINT [ "dumb-init" , "--" , "dumb-entrypoint" ]

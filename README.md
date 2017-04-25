@@ -4,36 +4,31 @@ Catches mail and serves it
 
 ## Installation
 
-Pull the image `timonier/mailcatcher`:
+Copy `bin/mailcatcher` into your executable folder (like `/usr/local/bin` or `$HOME/bin`):
 
 ```sh
-# Get the latest image (version 0.6.4)
-docker pull timonier/mailcatcher
+sudo curl --location --output /usr/local/bin/mailcatcher "https://github.com/timonier/mailcatcher/raw/master/bin/mailcatcher"
+sudo chmod +x /usr/local/bin/mailcatcher
+```
 
-# Or get a specific version
+Linux users can use the [installer](https://github.com/timonier/mailcatcher/blob/master/bin/installer):
 
-# Get the version 0.6.4
-docker pull timonier/mailcatcher:0.6.4
+```sh
+curl --location "https://github.com/timonier/mailcatcher/raw/master/bin/installer" | sudo sh -s install
 ```
 
 ## Usage
 
-Run the application via `docker run`. The mailcatcher options can be passed as arguments:
+Run the command `mailcatcher`:
 
 ```sh
 # See all mailcatcher options
-docker run \
-    -i \
-    -t \
-    --net host \
-    timonier/mailcatcher --help
+
+mailcatcher --help
 
 # Run mailcatcher
-docker run \
-    -i \
-    -t \
-    --net host \
-    timonier/mailcatcher --smtp-port 25 --http-port 80 --ip 0.0.0.0
+
+mailcatcher --http-port 80 --ip 0.0.0.0 --smtp-port 25
 ```
 
 ## Contributing
@@ -48,8 +43,8 @@ __Note__: Use the script `bin/build` to test your modifications locally.
 
 ## Links
 
-* [command "docker pull"](https://docs.docker.com/reference/commandline/pull/)
 * [command "docker run"](https://docs.docker.com/reference/run/)
 * [image "timonier/mailcatcher"](https://hub.docker.com/r/timonier/mailcatcher/)
-* [mailcatcher](https://mailcatcher.me/)
+* [sj26/mailcatcher](https://github.com/sj26/mailcatcher)
 * [timonier/dumb-entrypoint](https://github.com/timonier/dumb-entrypoint)
+* [timonier/version-lister](https://github.com/timonier/version-lister)
