@@ -6,7 +6,7 @@ LABEL \
 ENV \
     MAILCATCHER_VERSION=latest
 
-RUN set -eux \
+RUN set -ex \
 
     # Install packages
 
@@ -20,16 +20,18 @@ RUN set -eux \
            libstdc++ \
            sqlite-libs \
 
-    # Install dumb-entrypoint
-
-    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/bin/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s install \
-
-    # Install mailcatcher
+    # Install sj26/mailcatcher
 
     && export $(curl "https://raw.githubusercontent.com/timonier/version-lister/release/generated/mailcatcher/${MAILCATCHER_VERSION}" | xargs) \
 
     && gem install --no-rdoc --no-ri --no-verbose \
            "mailcatcher:${MAILCATCHER_VERSION}" \
+
+    # Install timonier/dumb-entrypoint
+
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-entrypoint/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-init/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/gosu/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
 
     # Clean
 

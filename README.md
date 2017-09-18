@@ -14,7 +14,7 @@ sudo chmod +x /usr/local/bin/mailcatcher
 Linux users can use the [installer](https://github.com/timonier/mailcatcher/blob/master/bin/installer):
 
 ```sh
-curl --location "https://github.com/timonier/mailcatcher/raw/master/bin/installer" | sudo sh -s install
+curl --location "https://github.com/timonier/mailcatcher/raw/master/bin/installer" | sudo sh -s -- install
 ```
 
 ## Usage
@@ -43,7 +43,6 @@ __Note__: Use the script `bin/build` to test your modifications locally.
 
 ## Links
 
-* [command "docker run"](https://docs.docker.com/reference/run/)
 * [image "timonier/mailcatcher"](https://hub.docker.com/r/timonier/mailcatcher/)
 * [sj26/mailcatcher](https://github.com/sj26/mailcatcher)
 * [timonier/dumb-entrypoint](https://github.com/timonier/dumb-entrypoint)
