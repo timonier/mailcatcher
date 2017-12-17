@@ -4,13 +4,6 @@ Catches mail and serves it
 
 ## Installation
 
-Copy `bin/mailcatcher` into your executable folder (like `/usr/local/bin` or `$HOME/bin`):
-
-```sh
-sudo curl --location --output /usr/local/bin/mailcatcher "https://github.com/timonier/mailcatcher/raw/master/bin/mailcatcher"
-sudo chmod +x /usr/local/bin/mailcatcher
-```
-
 Linux users can use the [installer](https://github.com/timonier/mailcatcher/blob/master/bin/installer):
 
 ```sh
