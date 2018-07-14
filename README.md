@@ -34,6 +34,8 @@ mailcatcher --http-port 80 --ip 0.0.0.0 --smtp-port 25
 
 __Note__: Use the script `bin/build` to test your modifications locally.
 
+If you like / use this project, please let me known by adding a [★](https://help.github.com/articles/about-stars/) on the [GitHub repository](https://github.com/timonier/mailcatcher).
+
 ## Links
 
 * [image "timonier/mailcatcher"](https://hub.docker.com/r/timonier/mailcatcher/)
