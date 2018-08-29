@@ -3,36 +3,25 @@ FROM ruby:2.3-alpine
 LABEL \
     maintainer="Morgan Auchede <morgan.auchede@gmail.com>"
 
-ENV \
-    MAILCATCHER_VERSION=latest
-
-RUN set -ex \
+RUN set -e -u -x \
 \
     # Install packages
 \
-    && apk add --no-cache --no-progress --virtual BUILD_DEPS \
-           build-base \
-           ca-certificates \
-           curl \
-           sqlite-dev \
-    && apk add --no-cache --no-progress \
-           libstdc++ \
-           sqlite-libs \
+    && apk add --no-cache --no-progress --virtual BUILD_DEPS build-base ca-certificates curl sqlite-dev \
+    && apk add --no-cache --no-progress libstdc++ sqlite-libs \
 \
-    # Install sj26/mailcatcher
+    # Install dumb-entrypoint
 \
-    && export $(curl --location "https://github.com/timonier/version-lister/raw/generated/sj26/mailcatcher/${MAILCATCHER_VERSION}" | xargs) \
-    && gem install --no-rdoc --no-ri --no-verbose \
-           "mailcatcher:${MAILCATCHER_VERSION}" \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-entrypoint/installer" | sh -s -- install \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/gosu/installer" | sh -s -- install \
 \
-    # Install timonier/dumb-entrypoint
+    # Install mailcatcher
 \
-    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-entrypoint/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
-    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/gosu/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
+    && gem install --no-rdoc --no-ri --no-verbose mailcatcher \
 \
     # Clean
 \
-    && apk del --no-progress \
-           BUILD_DEPS
+    && apk del --no-progress BUILD_DEPS \
+    && rm -f -r /root/.gem /tmp/*
 
 ENTRYPOINT [ "dumb-entrypoint" ]

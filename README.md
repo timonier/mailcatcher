@@ -7,8 +7,20 @@ Catches mail and serves it
 Linux users can use the [installer](https://github.com/timonier/mailcatcher/blob/master/bin/installer):
 
 ```sh
+# Define installation folder
+
+export INSTALL_DIRECTORY=/usr/bin
+
+# Use local installation
+
+sudo bin/installer install
+
+# Use remote installation
+
 curl --location "https://github.com/timonier/mailcatcher/raw/master/bin/installer" | sudo sh -s -- install
 ```
+
+__Note__: If you do not define `INSTALL_DIRECTORY`, `installer` will use in `/usr/local/bin`.
 
 ## Usage
 
@@ -21,7 +33,7 @@ mailcatcher --help
 
 # Run mailcatcher
 
-mailcatcher --http-port 80 --ip 0.0.0.0 --smtp-port 25
+mailcatcher --foreground --http-port 80 --ip 0.0.0.0 --smtp-port 25
 ```
 
 ## Contributing
