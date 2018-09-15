@@ -4,8 +4,6 @@ Catches mail and serves it
 
 ## Installation
 
-Linux users can use the [installer](https://github.com/timonier/mailcatcher/blob/master/bin/installer):
-
 ```sh
 # Define installation folder
 
