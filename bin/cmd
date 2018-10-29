@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e -u
 
-fail() {
+_fail() {
     echo 1>&2 "$1"
     exit 255
 }
@@ -14,4 +14,4 @@ if [ "$(uname)" == "Linux" ]; then
     exec docker run --init --interactive --net host --rm --tty="$([ -t 0 ] && echo "true" || echo "false")" "${IMAGE:-timonier/mailcatcher}":"${TAG:-latest}" "$(basename "$0")" "$@"
 fi
 
-fail "Current OS is not supported."
+_fail "Current OS is not supported."
