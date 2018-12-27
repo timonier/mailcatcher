@@ -17,7 +17,7 @@ RUN set -e -u -x \
 \
     # Install mailcatcher
 \
-    && gem install --no-rdoc --no-ri --no-verbose mailcatcher \
+    && gem install --no-verbose mailcatcher \
 \
     # Clean
 \
