@@ -7,8 +7,8 @@ RUN set -e -u -x \
 \
     # Install packages
 \
-    && apk add --no-cache --no-progress --virtual BUILD_DEPS build-base ca-certificates curl sqlite-dev \
-    && apk add --no-cache --no-progress bash libstdc++ sqlite-libs \
+    && apk add --no-cache --no-progress --virtual BUILD_DEPS build-base ca-certificates curl gmp-dev sqlite-dev \
+    && apk add --no-cache --no-progress bash gmp libstdc++ sqlite-libs \
 \
     # Install dumb-entrypoint
 \
