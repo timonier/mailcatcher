@@ -25,7 +25,7 @@ case "$1" in
         if [ -t 0 ]; then
             cp cmd "${INSTALL_DIRECTORY}"/mailcatcher
         else
-            curl --location --output "${INSTALL_DIRECTORY}"/mailcatcher "https://gitlab.com/timonier/mailcatcher/raw/master/bin/cmd"
+            curl --location --output "${INSTALL_DIRECTORY}"/mailcatcher "https://github.com/timonier/mailcatcher/raw/master/bin/cmd"
         fi
 
         chmod +x "${INSTALL_DIRECTORY}"/mailcatcher

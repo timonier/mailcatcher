@@ -7,11 +7,11 @@ _fail() {
 }
 
 if [ "$(uname)" == "Darwin" ]; then
-    exec docker run --init --interactive --net host --rm --tty="$([ -t 0 ] && echo "true" || echo "false")" "${IMAGE:-timonier/mailcatcher}":"${TAG:-latest}" "$(basename "$0")" "$@"
+    exec docker run $(compgen -A variable | grep -E -v "^(HOME|JAVA_HOME|LOGNAME|OLDPWD|PATH|SHELL|TMPDIR|USER)$" | awk "{print \"--env\", \$1}") --init --interactive --mount "dst=${HOME},src=timonier-mailcatcher-home,type=volume,volume-driver=local,volume-opt=device=:${HOME},volume-opt=type=nfs,\"volume-opt=o=addr=host.docker.internal,hard,nfsvers=3,nointr,nolock,rw\"" --mount "dst=/root,src=timonier-mailcatcher-root,type=volume,volume-driver=local,volume-opt=device=:${HOME},volume-opt=type=nfs,\"volume-opt=o=addr=host.docker.internal,hard,nfsvers=3,nointr,nolock,rw\"" --net host --rm --tty="$([ -t 0 ] && echo "true" || echo "false")" --workdir "${PWD}" "${IMAGE:-timonier/mailcatcher}":"${TAG:-latest}" "$(basename "$0")" "$@"
 fi
 
 if [ "$(uname)" == "Linux" ]; then
-    exec docker run --init --interactive --net host --rm --tty="$([ -t 0 ] && echo "true" || echo "false")" "${IMAGE:-timonier/mailcatcher}":"${TAG:-latest}" "$(basename "$0")" "$@"
+    exec docker run $(compgen -A variable | grep -E -v "^(PATH)$" | awk "{print \"--env\", \$1}") --interactive --net host --rm --tty="$([ -t 0 ] && echo "true" || echo "false")" --user "$(id -u)" --volume /etc/group:/etc/group:ro --volume /etc/localtime:/etc/localtime:ro --volume /etc/passwd:/etc/passwd:ro --volume /etc/timezone:/etc/timezone:ro --volume /run:/run --volume /tmp:/tmp --volume "${HOME}":"${HOME}" --workdir "${PWD}" "${IMAGE:-timonier/mailcatcher}":"${TAG:-latest}" "$(basename "$0")" "$@"
 fi
 
 _fail "Current OS is not supported."
